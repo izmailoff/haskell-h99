@@ -1,9 +1,15 @@
+# Build Status
+[![Build Status](https://travis-ci.org/izmailoff/haskell-h99.png?branch=master)](https://travis-ci.org/izmailoff/haskell-h99)
+
+# Test Coverage
+[![Coverage Status](https://coveralls.io/repos/izmailoff/haskell-h99/badge.svg?branch=master)](https://coveralls.io/r/izmailoff/haskell-h99?branch=master)
+
 # haskell-h99
-Solutions for H99 (https://wiki.haskell.org/99_questions)
+Solutions for [H99](https://wiki.haskell.org/99_questions)
 
-Run from your OS shell:
+Run from OS shell:
 
-cabal clean
-cabal build
-cabal test
+    cabal clean
+    cabal build
+    cabal test
 
