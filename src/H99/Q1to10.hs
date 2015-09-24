@@ -20,6 +20,22 @@ problem1 = testGroup "Problem 1" [ testCase "myLast [1,2,3,4]" $
                                    myLast "xyz" @?= 'z'
                                  ]
 
+{-| Problem 2.
+  Find the last but one element of a list.
+-}
+myButLast :: [a] -> a
+myButLast [] = error "This list has no penultimate element"
+myButLast [x] = error "This list has no penultimate element"
+myButLast [x, y] = x
+myButLast (x:xs) = myButLast xs
+
+problem2 :: TestTree
+problem2 = testGroup "Problem 2" [ testCase "myButLast [1,2,3,4]" $
+                                   myButLast [1,2,3,4] @?= 3
+                                 , testCase "myButLast ['a'..'z']" $
+                                   myButLast ['a'..'z'] @?= 'y'
+                                 ]
+
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
-             [ problem1 ]
+             [ problem1, problem2 ]
