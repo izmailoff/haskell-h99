@@ -1,0 +1,30 @@
+name:              haskell-h99
+version:           1.0
+description:       Solutions to 99 Haskell Problems
+homepage:          http://www.haskell.org/haskellwiki/H-99:_Ninety-Nine_Haskell_Problems
+license:           MIT
+author:            Aleksey Izmailov
+maintainer:        izmailoff@gmail.com
+category:          Algorithms
+build-Type:        Simple
+cabal-version:     >= 1.18
+
+library
+  exposed-modules:     H99.Q1to10
+  build-depends:       base,
+                       random,
+                       tasty,
+                       tasty-hunit
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  main-is:             Test.hs
+  build-depends:       base,
+                       random,
+                       tasty,
+                       tasty-hunit,
+                       haskell-h99
+  hs-source-dirs:      test
+  default-language:    Haskell2010
