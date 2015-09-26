@@ -4,12 +4,13 @@ module H99.Q1to10
 
 import           Test.Tasty
 import           Test.Tasty.HUnit as HU
+--import           Test.HUnit.Tools (assertRaises)
 
 {-| Problem 1.
   Find the last element of a list.
 -}
 myLast :: [a] -> a
-myLast [] = error "Empty list has no last element"
+myLast [] = error "No such element"
 myLast (x:[]) = x
 myLast (_:xs) = myLast xs
 
@@ -24,8 +25,8 @@ problem1 = testGroup "Problem 1" [ testCase "myLast [1,2,3,4]" $
   Find the last but one element of a list.
 -}
 myButLast :: [a] -> a
-myButLast [] = error "This list has no penultimate element"
-myButLast [x] = error "This list has no penultimate element"
+myButLast [] = error "No such element"
+myButLast [x] = error "No such element"
 myButLast [x, y] = x
 myButLast (x:xs) = myButLast xs
 
@@ -34,8 +35,39 @@ problem2 = testGroup "Problem 2" [ testCase "myButLast [1,2,3,4]" $
                                    myButLast [1,2,3,4] @?= 3
                                  , testCase "myButLast ['a'..'z']" $
                                    myButLast ['a'..'z'] @?= 'y'
+                                 --, testCase "myButLast []" $
+                                 --  assertRaises "should throw" (Exception "No such element") $ evaluate myButLast []
                                  ]
+
+{-| Problem 3.
+  Find the K'th element of a list. The first element in the list is number 1.
+-}
+elementAt :: [a] -> Int -> a
+elementAt [] _ = error "No such element"
+elementAt (x:xs) 1 = x
+elementAt (x:xs) n = elementAt xs (n - 1)
+
+problem3 :: TestTree
+problem3 = testGroup "Problem 3" [ testCase "elementAt [1,2,3] 2" $
+                                   elementAt [1,2,3] 2 @?= 2
+                                 , testCase "elementAt \"haskell\" 5" $
+                                   elementAt "haskell" 5 @?= 'e'
+                                  ]
+
+{-| Problem 4.
+  Find the number of elements of a list.
+-}
+myLength :: [a] -> Int
+myLength [] = 0
+myLength (_:xs) = 1 + myLength xs
+
+problem4 :: TestTree
+problem4 = testGroup "Problem 4" [ testCase "myLength [123, 456, 789]" $
+                                   myLength [123, 456, 789] @?= 3
+                                 , testCase "myLength \"Hello, world!\"" $
+                                   myLength "Hello, world!" @?= 13
+                                  ]
 
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
-             [ problem1, problem2 ]
+             [ problem1, problem2, problem3, problem4 ]
