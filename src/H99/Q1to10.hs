@@ -68,6 +68,20 @@ problem4 = testGroup "Problem 4" [ testCase "myLength [123, 456, 789]" $
                                    myLength "Hello, world!" @?= 13
                                   ]
 
+{-| Problem 5.
+  Reverse a list.
+-}
+myReverse :: [a] -> [a]
+myReverse [] = []
+myReverse (x:xs) = myReverse xs ++ [x]
+
+problem5 :: TestTree
+problem5 = testGroup "Problem 4" [ testCase "myReverse \"A man, a plan, a canal, panama!\"" $
+                                   myReverse "A man, a plan, a canal, panama!" @?= "!amanap ,lanac a ,nalp a ,nam A"
+                                 , testCase "myReverse [1,2,3,4]" $
+                                   myReverse [1,2,3,4] @?= [4,3,2,1]
+                                  ]
+
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
-             [ problem1, problem2, problem3, problem4 ]
+             [ problem1, problem2, problem3, problem4, problem5 ]
