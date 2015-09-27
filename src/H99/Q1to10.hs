@@ -101,7 +101,25 @@ problem6 = testGroup "Problem 6" [ testCase "isPalindrome [1,2,3]" $
                                    isPalindrome [1] @?= True
                                   ]
 
+{-| Problem 7.
+  Flatten a nested list structure.
+-}
+data NestedList a = Elem a | List [NestedList a]
+flatten :: NestedList a -> [a]
+flatten (Elem x) = [x]
+flatten (List []) = []
+flatten (List xs) = foldl (\accu x -> accu ++ flatten x) [] xs
+
+problem7 :: TestTree
+problem7 = testGroup "Problem 4" [ testCase "flatten (Elem 5)" $
+                                   flatten (Elem 5) @?= [5]
+                                 , testCase "flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])" $
+                                   flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]) @?= [1,2,3,4,5]
+                                 , testCase "flatten (List [])" $
+                                   flatten (List [] :: NestedList Char) @?= ([] :: [Char])
+                                  ]
+
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
              [ problem1, problem2, problem3, problem4, problem5,
-               problem6 ]
+               problem6, problem7 ]
