@@ -52,7 +52,7 @@ problem3 = testGroup "Problem 3" [ testCase "elementAt [1,2,3] 2" $
                                    elementAt [1,2,3] 2 @?= 2
                                  , testCase "elementAt \"haskell\" 5" $
                                    elementAt "haskell" 5 @?= 'e'
-                                  ]
+                                 ]
 
 {-| Problem 4.
   Find the number of elements of a list.
@@ -66,7 +66,7 @@ problem4 = testGroup "Problem 4" [ testCase "myLength [123, 456, 789]" $
                                    myLength [123, 456, 789] @?= 3
                                  , testCase "myLength \"Hello, world!\"" $
                                    myLength "Hello, world!" @?= 13
-                                  ]
+                                 ]
 
 {-| Problem 5.
   Reverse a list.
@@ -76,11 +76,11 @@ myReverse [] = []
 myReverse (x:xs) = myReverse xs ++ [x]
 
 problem5 :: TestTree
-problem5 = testGroup "Problem 4" [ testCase "myReverse \"A man, a plan, a canal, panama!\"" $
+problem5 = testGroup "Problem 5" [ testCase "myReverse \"A man, a plan, a canal, panama!\"" $
                                    myReverse "A man, a plan, a canal, panama!" @?= "!amanap ,lanac a ,nalp a ,nam A"
                                  , testCase "myReverse [1,2,3,4]" $
                                    myReverse [1,2,3,4] @?= [4,3,2,1]
-                                  ]
+                                 ]
 
 {-| Problem 6.
   Find the number of elements of a list.
@@ -99,7 +99,7 @@ problem6 = testGroup "Problem 6" [ testCase "isPalindrome [1,2,3]" $
                                    isPalindrome ([] :: [Int]) @?= True
                                  , testCase "isPalindrome [1]" $
                                    isPalindrome [1] @?= True
-                                  ]
+                                 ]
 
 {-| Problem 7.
   Flatten a nested list structure.
@@ -110,15 +110,35 @@ flatten (Elem x) = [x]
 flatten (List xs) = foldl (\accu x -> accu ++ flatten x) [] xs
 
 problem7 :: TestTree
-problem7 = testGroup "Problem 4" [ testCase "flatten (Elem 5)" $
+problem7 = testGroup "Problem 7" [ testCase "flatten (Elem 5)" $
                                    flatten (Elem 5) @?= [5]
                                  , testCase "flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])" $
                                    flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]) @?= [1,2,3,4,5]
                                  , testCase "flatten (List [])" $
                                    flatten (List [] :: NestedList Char) @?= ([] :: [Char])
-                                  ]
+                                 ]
+
+{-| Problem 8.
+  Eliminate consecutive duplicates of list elements.
+-}
+compress :: (Eq a) => [a] -> [a]
+compress [] = []
+compress (x:[]) = [x]
+compress (fst:sec:rest)
+  | fst == sec = remaining
+  | otherwise = fst : remaining
+  where remaining = compress $ sec : rest
+
+problem8 :: TestTree
+problem8 = testGroup "Problem 8" [ testCase "compress \"aaaabccaadeeee\"" $
+                                   compress "aaaabccaadeeee" @?= "abcade"
+                                 , testCase "compress [1]" $
+                                   compress [1] @?= [1]
+                                 , testCase "compress []" $
+                                   compress ([] :: [Int]) @?= ([] :: [Int])
+                                 ]
 
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
              [ problem1, problem2, problem3, problem4, problem5,
-               problem6, problem7 ]
+               problem6, problem7, problem8 ]
