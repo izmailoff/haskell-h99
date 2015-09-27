@@ -107,7 +107,6 @@ problem6 = testGroup "Problem 6" [ testCase "isPalindrome [1,2,3]" $
 data NestedList a = Elem a | List [NestedList a]
 flatten :: NestedList a -> [a]
 flatten (Elem x) = [x]
-flatten (List []) = []
 flatten (List xs) = foldl (\accu x -> accu ++ flatten x) [] xs
 
 problem7 :: TestTree
