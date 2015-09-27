@@ -82,6 +82,26 @@ problem5 = testGroup "Problem 4" [ testCase "myReverse \"A man, a plan, a canal,
                                    myReverse [1,2,3,4] @?= [4,3,2,1]
                                   ]
 
+{-| Problem 6.
+  Find the number of elements of a list.
+-}
+isPalindrome :: (Eq a) => [a] -> Bool
+isPalindrome xs = xs == myReverse xs
+
+problem6 :: TestTree
+problem6 = testGroup "Problem 6" [ testCase "isPalindrome [1,2,3]" $
+                                   isPalindrome [1,2,3] @?= False
+                                 , testCase "isPalindrome \"madamimadam\"" $
+                                   isPalindrome "madamimadam" @?= True
+                                 , testCase "isPalindrome [1,2,4,8,16,8,4,2,1]" $
+                                   isPalindrome [1,2,4,8,16,8,4,2,1] @?= True
+                                 , testCase "isPalindrome []" $
+                                   isPalindrome ([] :: [Int]) @?= True
+                                 , testCase "isPalindrome [1]" $
+                                   isPalindrome [1] @?= True
+                                  ]
+
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
-             [ problem1, problem2, problem3, problem4, problem5 ]
+             [ problem1, problem2, problem3, problem4, problem5,
+               problem6 ]
