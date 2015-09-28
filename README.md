@@ -7,6 +7,8 @@
 # haskell-h99
 Solutions for [H99](https://wiki.haskell.org/99_questions)
 
+Compare to [Scala S99](https://github.com/izmailoff/scala-s-99) - same problems solved in Scala.
+
 Run from OS shell:
 
     cabal clean
