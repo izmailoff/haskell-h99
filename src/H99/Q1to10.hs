@@ -138,7 +138,29 @@ problem8 = testGroup "Problem 8" [ testCase "compress \"aaaabccaadeeee\"" $
                                    compress ([] :: [Int]) @?= ([] :: [Int])
                                  ]
 
+{-| Problem 9.
+  Pack consecutive duplicates of list elements into sublists.
+  If a list contains repeated elements they should be placed in separate sublists.
+-}
+pack :: (Eq a) => [a] -> [[a]]
+pack xs = foldr grp [[]] xs
+  where
+    grp e [[]] = [[e]]
+    grp e (curList@(h:t):ys)
+       | h == e = (e:curList):ys
+       | otherwise = [e]:curList:ys
+
+problem9 :: TestTree
+problem9 = testGroup "Problem 9" [ testCase "pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e']" $
+                                   pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a',
+                                         'a', 'd', 'e', 'e', 'e', 'e'] @?= ["aaaa","b","cc","aa","d","eeee"]
+                                 , testCase "pack [1]" $
+                                   pack [1] @?= [[1]]
+                                 , testCase "pack []" $
+                                   pack ([] :: [Int]) @?= ([[]] :: [[Int]])
+                                 ]
+
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
              [ problem1, problem2, problem3, problem4, problem5,
-               problem6, problem7, problem8 ]
+               problem6, problem7, problem8, problem9 ]
