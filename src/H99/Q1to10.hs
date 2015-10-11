@@ -115,7 +115,7 @@ problem7 = testGroup "Problem 7" [ testCase "flatten (Elem 5)" $
                                  , testCase "flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])" $
                                    flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]) @?= [1,2,3,4,5]
                                  , testCase "flatten (List [])" $
-                                   flatten (List [] :: NestedList Char) @?= ([] :: [Char])
+                                   flatten (List [] :: NestedList Char) @?= []
                                  ]
 
 {-| Problem 8.
@@ -135,7 +135,7 @@ problem8 = testGroup "Problem 8" [ testCase "compress \"aaaabccaadeeee\"" $
                                  , testCase "compress [1]" $
                                    compress [1] @?= [1]
                                  , testCase "compress []" $
-                                   compress ([] :: [Int]) @?= ([] :: [Int])
+                                   compress ([] :: [Int]) @?= []
                                  ]
 
 {-| Problem 9.
@@ -157,10 +157,28 @@ problem9 = testGroup "Problem 9" [ testCase "pack ['a', 'a', 'a', 'a', 'b', 'c',
                                  , testCase "pack [1]" $
                                    pack [1] @?= [[1]]
                                  , testCase "pack []" $
-                                   pack ([] :: [Int]) @?= ([[]] :: [[Int]])
+                                   pack ([] :: [Int]) @?= [[]]
+                                 ]
+
+{-| Problem 10.
+  Run-length encoding of a list. Use the result of problem P09 to implement the so-called run-length
+  encoding data compression method. Consecutive duplicates of elements are encoded
+  as lists (N E) where N is the number of duplicates of the element E.
+-}
+encode :: (Eq a) => [a] -> [(Int, a)]
+encode xs = [ (myLength l, h) | l@(h:t) <- pack xs]
+
+problem10 :: TestTree
+problem10 = testGroup "Problem 10" [ testCase "encode ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e']" $
+                                   encode ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a',
+                                         'a', 'd', 'e', 'e', 'e', 'e'] @?= [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
+                                 , testCase "encode [1]" $
+                                   encode [1] @?= [(1, 1)]
+                                 , testCase "encode []" $
+                                   encode ([] :: [Int]) @?= []
                                  ]
 
 tests1to10 :: TestTree
 tests1to10 = testGroup "Q1 - 10"
              [ problem1, problem2, problem3, problem4, problem5,
-               problem6, problem7, problem8, problem9 ]
+               problem6, problem7, problem8, problem9, problem10 ]
