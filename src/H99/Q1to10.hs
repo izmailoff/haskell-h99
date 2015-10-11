@@ -1,5 +1,6 @@
 module H99.Q1to10
-    ( tests1to10
+    ( tests1to10,
+      encode
     ) where
 
 import           Test.Tasty

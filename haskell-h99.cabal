@@ -11,6 +11,7 @@ cabal-version:     >= 1.18
 
 library
   exposed-modules:     H99.Q1to10
+                       H99.Q11to20
   build-depends:       base,
                        random,
                        tasty,
