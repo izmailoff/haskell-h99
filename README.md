@@ -1,4 +1,6 @@
 # Build Status
+
+[![Join the chat at https://gitter.im/izmailoff/haskell-h99](https://badges.gitter.im/izmailoff/haskell-h99.svg)](https://gitter.im/izmailoff/haskell-h99?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/izmailoff/haskell-h99.png?branch=master)](https://travis-ci.org/izmailoff/haskell-h99)
 
 # Test Coverage
